@@ -97,11 +97,11 @@ export default function Events() {
   return (
     <main className="pt-16">
       {/* Header */}
-      <section className="bg-[#2B2D3A] py-10 md:py-20 px-4 text-center">
+      <section className="bg-[#2B2D3A] py-6 md:py-20 px-4 text-center">
         <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">
           Mark Your Calendar
         </p>
-        <h1 className="font-serif text-3xl md:text-6xl font-bold text-white mb-3">Upcoming Events</h1>
+        <h1 className="font-serif text-2xl md:text-6xl font-bold text-white mb-3">Upcoming Events</h1>
         <Divider light />
         <p className="font-sans text-white/60 mt-3 text-sm max-w-lg mx-auto">
           From weekly jazz nights to exclusive masterclasses - there is always something happening at Jiko House.
@@ -128,9 +128,9 @@ export default function Events() {
       </section>
 
       {/* Events grid */}
-      <section className="bg-[#F4F4F2] py-8 md:py-16 px-4">
+      <section className="bg-[#F4F4F2] py-5 md:py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
             {filtered.map((event) => (
               <EventCard key={event.id} event={event} onReserve={() => navigate('/contact')} />
             ))}
@@ -145,8 +145,8 @@ export default function Events() {
       </section>
 
       {/* Private events CTA */}
-      <section className="bg-white py-10 md:py-16 px-4">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-6 md:gap-10">
+      <section className="bg-white py-6 md:py-16 px-4">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-4 md:gap-10">
           <div className="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-lg aspect-video">
             <img
               src="https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?w=800&q=80"
@@ -190,7 +190,7 @@ export default function Events() {
       </section>
 
       {/* Newsletter signup strip */}
-      <section className="bg-[#2B2D3A] py-8 md:py-12 px-4">
+      <section className="bg-[#2B2D3A] py-5 md:py-12 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="font-serif text-xl md:text-2xl font-bold text-white mb-1">Never Miss an Event</h2>
           <p className="font-sans text-white/60 text-sm mb-4">
@@ -237,7 +237,7 @@ function EventCard({ event, onReserve }) {
         )}
       </div>
 
-      <div className="p-4 md:p-6 flex flex-col flex-1">
+      <div className="p-3 md:p-6 flex flex-col flex-1">
         <h3 className="font-serif text-base md:text-xl font-bold text-[#2B2D3A] mb-2">{event.title}</h3>
 
         <div className="space-y-1 mb-3">
@@ -265,7 +265,7 @@ function EventCard({ event, onReserve }) {
 
         <button
           onClick={onReserve}
-          className="btn-primary mt-5 text-sm py-2.5"
+          className="btn-primary mt-3 text-sm py-2 md:py-2.5"
         >
           {event.spots !== null ? 'Reserve a Spot' : 'Learn More'}
         </button>

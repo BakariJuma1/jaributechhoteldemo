@@ -45,12 +45,12 @@ export default function About() {
   return (
     <main className="pt-16">
       {/* Hero */}
-      <section className="relative py-14 md:py-28 px-4 overflow-hidden">
+      <section className="relative py-8 md:py-28 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1611348524140-53c9a25263d6?w=1600&q=80')" }} />
         <div className="absolute inset-0 bg-[#2B2D3A]/80" />
         <div className="relative z-10 text-center max-w-3xl mx-auto">
           <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">Our Story</p>
-          <h1 className="font-serif text-3xl md:text-6xl font-bold text-white mb-3">About Jiko House</h1>
+          <h1 className="font-serif text-2xl md:text-6xl font-bold text-white mb-3">About Jiko House</h1>
           <Divider light />
           <p className="font-sans text-white/70 mt-3 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
             Born from a love of fire, flavour, and the people of Nairobi.
@@ -59,8 +59,8 @@ export default function About() {
       </section>
 
       {/* Origin story */}
-      <section className="bg-white py-10 md:py-20 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
+      <section className="bg-white py-6 md:py-20 px-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-14 items-center">
           <div>
             <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">Where It All Started</p>
             <h2 className="font-serif text-2xl md:text-4xl font-bold text-[#2B2D3A] mb-3">
@@ -80,9 +80,9 @@ export default function About() {
       </section>
 
       {/* Values */}
-      <section className="bg-[#F4F4F2] py-10 md:py-20 px-4">
+      <section className="bg-[#F4F4F2] py-6 md:py-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-7 md:mb-12">
+          <div className="text-center mb-5 md:mb-12">
             <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">What Drives Us</p>
             <h2 className="font-serif text-2xl md:text-4xl font-bold text-[#2B2D3A]">Our Values</h2>
             <Divider />
@@ -102,9 +102,9 @@ export default function About() {
       </section>
 
       {/* Timeline */}
-      <section className="bg-[#2B2D3A] py-10 md:py-20 px-4">
+      <section className="bg-[#2B2D3A] py-6 md:py-20 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-7 md:mb-12">
+          <div className="text-center mb-5 md:mb-12">
             <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">The Journey</p>
             <h2 className="font-serif text-2xl md:text-4xl font-bold text-white">Milestones</h2>
             <Divider light />
@@ -126,14 +126,14 @@ export default function About() {
       </section>
 
       {/* Team */}
-      <section className="bg-white py-10 md:py-20 px-4">
+      <section className="bg-white py-6 md:py-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-7 md:mb-12">
+          <div className="text-center mb-5 md:mb-12">
             <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">The People Behind the Smoke</p>
             <h2 className="font-serif text-2xl md:text-4xl font-bold text-[#2B2D3A]">Meet the Team</h2>
             <Divider />
           </div>
-          <div className="grid grid-cols-3 gap-4 md:gap-8">
+          <div className="grid grid-cols-3 gap-3 md:gap-8">
             {team.map((member) => (
               <div key={member.name} className="text-center group">
                 <div className="w-20 h-20 md:w-36 md:h-36 rounded-full overflow-hidden mx-auto mb-3 shadow-md ring-4 ring-[#F4F4F2] group-hover:ring-[#D89B3F] transition-all duration-300">
@@ -149,8 +149,8 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#F4F4F2] py-10 md:py-16 px-4 text-center">
-        <h2 className="font-serif text-2xl md:text-3xl font-bold text-[#2B2D3A] mb-2">Come Experience It Yourself</h2>
+      <section className="bg-[#F4F4F2] py-6 md:py-16 px-4 text-center">
+        <h2 className="font-serif text-xl md:text-3xl font-bold text-[#2B2D3A] mb-2">Come Experience It Yourself</h2>
         <p className="font-sans text-gray-500 text-sm mb-5 max-w-md mx-auto">
           The story is best told over a plate of slow-smoked ribs. Reserve your table today.
         </p>

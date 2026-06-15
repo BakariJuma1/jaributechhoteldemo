@@ -8,11 +8,11 @@ export default function Gallery() {
   return (
     <main className="pt-16">
       {/* Page header */}
-      <section className="bg-[#2B2D3A] py-10 md:py-20 px-4 text-center">
+      <section className="bg-[#2B2D3A] py-6 md:py-20 px-4 text-center">
         <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">
           A Feast for the Eyes
         </p>
-        <h1 className="font-serif text-3xl md:text-6xl font-bold text-white mb-3">Gallery</h1>
+        <h1 className="font-serif text-2xl md:text-6xl font-bold text-white mb-3">Gallery</h1>
         <Divider light />
         <p className="font-sans text-white/60 mt-3 max-w-lg mx-auto text-sm">
           From fire-kissed brisket to our warm dining room - every visit is a moment worth remembering.
@@ -20,7 +20,7 @@ export default function Gallery() {
       </section>
 
       {/* Masonry grid */}
-      <section className="bg-[#F4F4F2] py-8 md:py-16 px-3 md:px-4">
+      <section className="bg-[#F4F4F2] py-5 md:py-16 px-3 md:px-4">
         <div className="max-w-7xl mx-auto">
           <div className="columns-2 md:columns-3 lg:columns-4 gap-3 md:gap-4 space-y-3 md:space-y-4">
             {galleryImages.map((img, i) => (

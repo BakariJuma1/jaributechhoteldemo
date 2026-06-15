@@ -12,24 +12,24 @@ export default function Contact() {
   return (
     <main className="pt-16">
       {/* Page header */}
-      <section className="bg-[#2B2D3A] py-10 md:py-20 px-4 text-center">
+      <section className="bg-[#2B2D3A] py-6 md:py-20 px-4 text-center">
         <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">
           We'd Love to Hear From You
         </p>
-        <h1 className="font-serif text-3xl md:text-6xl font-bold text-white mb-3">Contact Us</h1>
+        <h1 className="font-serif text-2xl md:text-6xl font-bold text-white mb-3">Contact Us</h1>
         <Divider light />
         <p className="font-sans text-white/60 mt-3 text-sm">
           Book a table, ask a question, or just say hello.
         </p>
       </section>
 
-      <section className="bg-[#F4F4F2] py-8 md:py-16 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-10">
+      <section className="bg-[#F4F4F2] py-5 md:py-16 px-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-10">
 
           {/* Left: contact info */}
           <div className="space-y-4">
-            <div className="bg-white rounded-2xl p-5 md:p-7 shadow-sm">
-              <h2 className="font-serif text-xl md:text-2xl font-bold text-[#2B2D3A] mb-4">Get in Touch</h2>
+            <div className="bg-white rounded-2xl p-4 md:p-7 shadow-sm">
+              <h2 className="font-serif text-lg md:text-2xl font-bold text-[#2B2D3A] mb-3">Get in Touch</h2>
               <div className="space-y-3">
                 <ContactRow icon="pin" label="Address" value={siteConfig.address} />
                 <ContactRow
@@ -78,9 +78,9 @@ export default function Contact() {
           </div>
 
           {/* Right: form */}
-          <div className="bg-white rounded-2xl p-5 md:p-7 shadow-sm">
-            <h2 className="font-serif text-xl md:text-2xl font-bold text-[#2B2D3A] mb-1">Send a Message</h2>
-            <p className="font-sans text-gray-400 text-sm mb-4">We'll get back to you within 24 hours.</p>
+          <div className="bg-white rounded-2xl p-4 md:p-7 shadow-sm">
+            <h2 className="font-serif text-lg md:text-2xl font-bold text-[#2B2D3A] mb-1">Send a Message</h2>
+            <p className="font-sans text-gray-400 text-sm mb-3">We'll get back to you within 24 hours.</p>
 
             {submitted ? (
               <div className="text-center py-8">
@@ -93,13 +93,13 @@ export default function Contact() {
                 <p className="font-sans text-gray-500 text-sm">We'll be in touch shortly.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-2.5 md:space-y-4">
                 <div>
                   <label className="font-sans text-sm font-medium text-[#2B2D3A] block mb-1">Your Name</label>
                   <input
                     type="text" name="name" value={form.name} onChange={handleChange} required
                     placeholder="John Kamau"
-                    className="w-full border border-gray-200 rounded-xl px-3 py-2.5 font-sans text-sm text-[#2B2D3A] placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#D89B3F]/50 focus:border-[#D89B3F] transition-colors"
+                    className="w-full border border-gray-200 rounded-xl px-3 py-2 font-sans text-sm text-[#2B2D3A] placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#D89B3F]/50 focus:border-[#D89B3F] transition-colors"
                   />
                 </div>
                 <div>
@@ -107,19 +107,19 @@ export default function Contact() {
                   <input
                     type="tel" name="phone" value={form.phone} onChange={handleChange} required
                     placeholder="+254 7XX XXX XXX"
-                    className="w-full border border-gray-200 rounded-xl px-3 py-2.5 font-sans text-sm text-[#2B2D3A] placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#D89B3F]/50 focus:border-[#D89B3F] transition-colors"
+                    className="w-full border border-gray-200 rounded-xl px-3 py-2 font-sans text-sm text-[#2B2D3A] placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#D89B3F]/50 focus:border-[#D89B3F] transition-colors"
                   />
                 </div>
                 <div>
                   <label className="font-sans text-sm font-medium text-[#2B2D3A] block mb-1">Message</label>
                   <textarea
                     name="message" value={form.message} onChange={handleChange} required
-                    rows={4}
+                    rows={3}
                     placeholder="I'd like to reserve a table for 4 on Saturday evening..."
-                    className="w-full border border-gray-200 rounded-xl px-3 py-2.5 font-sans text-sm text-[#2B2D3A] placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#D89B3F]/50 focus:border-[#D89B3F] transition-colors resize-none"
+                    className="w-full border border-gray-200 rounded-xl px-3 py-2 font-sans text-sm text-[#2B2D3A] placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#D89B3F]/50 focus:border-[#D89B3F] transition-colors resize-none"
                   />
                 </div>
-                <button type="submit" className="btn-primary w-full py-3">Send Message</button>
+                <button type="submit" className="btn-primary w-full py-2.5 md:py-3">Send Message</button>
               </form>
             )}
           </div>
@@ -127,7 +127,7 @@ export default function Contact() {
       </section>
 
       {/* Maps */}
-      <section className="bg-white py-8 md:py-14 px-4">
+      <section className="bg-white py-5 md:py-14 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-5">
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-[#2B2D3A]">Find Us</h2>

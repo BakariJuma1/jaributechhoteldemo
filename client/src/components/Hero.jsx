@@ -6,7 +6,7 @@ export default function Hero() {
   const navigate = useNavigate()
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[60vh] md:min-h-screen flex items-center justify-center overflow-hidden">
       <img
         src="/hero.gif"
         alt=""
@@ -16,7 +16,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
 
       <div className="relative z-10 text-center px-4 max-w-3xl mx-auto">
-        <h1 className="font-serif text-5xl md:text-8xl font-bold text-white leading-tight mb-1">
+        <h1 className="font-serif text-3xl md:text-6xl lg:text-8xl font-bold text-white leading-tight mb-1">
           Let's Eat.
         </h1>
         <Divider light />

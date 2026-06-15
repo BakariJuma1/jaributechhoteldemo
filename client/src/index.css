@@ -23,11 +23,11 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-[#D89B3F] text-white font-sans font-medium px-7 py-3 rounded-full transition-all duration-200 hover:bg-[#B8801F] hover:shadow-lg active:scale-95;
+    @apply bg-[#D89B3F] text-white font-sans font-medium px-5 py-2.5 md:px-7 md:py-3 rounded-full transition-all duration-200 hover:bg-[#B8801F] hover:shadow-lg active:scale-95;
   }
 
   .btn-outline {
-    @apply border-2 border-[#D89B3F] text-[#D89B3F] font-sans font-medium px-7 py-3 rounded-full transition-all duration-200 hover:bg-[#D89B3F] hover:text-white;
+    @apply border-2 border-[#D89B3F] text-[#D89B3F] font-sans font-medium px-5 py-2.5 md:px-7 md:py-3 rounded-full transition-all duration-200 hover:bg-[#D89B3F] hover:text-white;
   }
 
   .section-title {

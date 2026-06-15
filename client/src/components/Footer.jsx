@@ -4,10 +4,10 @@ import { siteConfig } from '../config/siteConfig'
 export default function Footer() {
   return (
     <footer className="bg-[#2B2D3A] text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7 md:py-14">
 
         {/* Top: brand + columns */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-10">
 
           {/* Brand - full width on mobile */}
           <div className="col-span-2 md:col-span-1">
@@ -71,7 +71,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-8 pt-5 text-center font-sans text-xs text-gray-500">
+        <div className="border-t border-white/10 mt-5 pt-4 text-center font-sans text-xs text-gray-500">
           &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved. Built with love in Nairobi.
         </div>
       </div>

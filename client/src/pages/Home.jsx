@@ -13,12 +13,12 @@ export default function Home() {
       <Hero />
 
       {/* About strip */}
-      <section className="bg-white py-10 md:py-20 px-4">
+      <section className="bg-white py-6 md:py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">
             Nairobi's Favourite Smokehouse
           </p>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold text-[#2B2D3A] mb-3">
+          <h2 className="font-serif text-2xl md:text-5xl font-bold text-[#2B2D3A] mb-3">
             Jiko House.
           </h2>
           <Divider />
@@ -40,9 +40,9 @@ export default function Home() {
       </section>
 
       {/* Featured items */}
-      <section className="bg-[#F4F4F2] py-10 md:py-20 px-4">
+      <section className="bg-[#F4F4F2] py-6 md:py-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8 md:mb-12">
+          <div className="text-center mb-5 md:mb-12">
             <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">
               From the Pit
             </p>
@@ -50,11 +50,11 @@ export default function Home() {
             <Divider />
           </div>
 
-          <div className="space-y-10 md:space-y-16">
+          <div className="space-y-6 md:space-y-16">
             {featuredItems.map((item, i) => (
               <div
                 key={item.name}
-                className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-6 md:gap-10`}
+                className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-4 md:gap-10`}
               >
                 <div className="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-lg aspect-video">
                   <img
@@ -83,7 +83,7 @@ export default function Home() {
       </section>
 
       {/* CTA Banner */}
-      <section className="relative py-14 md:py-24 px-4 overflow-hidden">
+      <section className="relative py-8 md:py-24 px-4 overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80')" }}
@@ -93,7 +93,7 @@ export default function Home() {
           <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">
             Book Your Seat
           </p>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-3">
+          <h2 className="font-serif text-2xl md:text-5xl font-bold text-white mb-3">
             Reserve Your Table Today
           </h2>
           <Divider light />
@@ -102,7 +102,7 @@ export default function Home() {
           </p>
           <button
             onClick={() => navigate('/contact')}
-            className="btn-primary px-8 py-3 text-sm md:text-base"
+            className="btn-primary text-sm md:text-base"
           >
             Reserve a Table
           </button>
@@ -110,7 +110,7 @@ export default function Home() {
       </section>
 
       {/* Opening hours */}
-      <section className="bg-white py-10 md:py-16 px-4">
+      <section className="bg-white py-6 md:py-16 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-[#2B2D3A] mb-2">Opening Hours</h2>
           <Divider />

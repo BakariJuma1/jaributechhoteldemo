@@ -18,11 +18,11 @@ export default function Menu() {
   return (
     <main className="pt-16">
       {/* Page header */}
-      <section className="bg-[#2B2D3A] py-10 md:py-20 px-4 text-center">
+      <section className="bg-[#2B2D3A] py-6 md:py-20 px-4 text-center">
         <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">
           Jiko House
         </p>
-        <h1 className="font-serif text-3xl md:text-6xl font-bold text-white mb-3">
+        <h1 className="font-serif text-2xl md:text-6xl font-bold text-white mb-3">
           The PIT 100% Kenyan BBQ
         </h1>
         <Divider light />
@@ -58,17 +58,17 @@ export default function Menu() {
 
       {/* Alternating featured (all view only) */}
       {activeCategory === 'all' && (
-        <section className="bg-[#F4F4F2] py-10 md:py-20 px-4">
+        <section className="bg-[#F4F4F2] py-6 md:py-20 px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-7 md:mb-12">
+            <div className="text-center mb-5 md:mb-12">
               <h2 className="font-serif text-2xl md:text-4xl font-bold text-[#2B2D3A]">Pit Specialties</h2>
               <Divider />
             </div>
-            <div className="space-y-8 md:space-y-16">
+            <div className="space-y-5 md:space-y-16">
               {featuredItems.map((item, i) => (
                 <div
                   key={item.name}
-                  className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-5 md:gap-10`}
+                  className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-4 md:gap-10`}
                 >
                   <div className="w-full md:w-1/2 rounded-xl overflow-hidden shadow-md aspect-video">
                     <img src={item.image} alt={item.name} className="w-full h-full object-cover" loading="lazy" />
@@ -87,12 +87,12 @@ export default function Menu() {
       )}
 
       {/* Card grid */}
-      <section className="bg-white py-8 md:py-20 px-4">
+      <section className="bg-white py-6 md:py-16 px-4">
         <div className="max-w-7xl mx-auto">
           {activeCategory === 'all' ? (
             menuCategories.map((cat) => (
-              <div key={cat.id} className="mb-10 md:mb-16">
-                <div className="flex items-center gap-3 mb-5 md:mb-8">
+              <div key={cat.id} className="mb-6 md:mb-16">
+                <div className="flex items-center gap-3 mb-4 md:mb-8">
                   <h2 className="font-serif text-xl md:text-3xl font-bold text-[#2B2D3A]">{cat.label}</h2>
                   <div className="flex-1 h-px bg-gray-200" />
                 </div>
@@ -103,7 +103,7 @@ export default function Menu() {
             ))
           ) : (
             <>
-              <div className="flex items-center gap-3 mb-5 md:mb-8">
+              <div className="flex items-center gap-3 mb-4 md:mb-8">
                 <h2 className="font-serif text-xl md:text-3xl font-bold text-[#2B2D3A]">
                   {menuCategories.find((c) => c.id === activeCategory)?.label}
                 </h2>
@@ -118,8 +118,8 @@ export default function Menu() {
       </section>
 
       {/* Reserve CTA */}
-      <section className="bg-[#2B2D3A] py-10 md:py-16 px-4 text-center">
-        <h2 className="font-serif text-2xl md:text-3xl font-bold text-white mb-2">Ready to Order?</h2>
+      <section className="bg-[#2B2D3A] py-6 md:py-16 px-4 text-center">
+        <h2 className="font-serif text-xl md:text-3xl font-bold text-white mb-2">Ready to Order?</h2>
         <p className="font-sans text-white/60 mb-5 text-sm">Reserve your table or call us for a takeaway order.</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button onClick={() => navigate('/contact')} className="btn-primary">Reserve a Table</button>
