@@ -97,25 +97,25 @@ export default function Events() {
   return (
     <main className="pt-16">
       {/* Header */}
-      <section className="bg-[#2B2D3A] py-20 px-4 text-center">
-        <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-3">
+      <section className="bg-[#2B2D3A] py-10 md:py-20 px-4 text-center">
+        <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">
           Mark Your Calendar
         </p>
-        <h1 className="font-serif text-5xl md:text-6xl font-bold text-white mb-3">Upcoming Events</h1>
+        <h1 className="font-serif text-3xl md:text-6xl font-bold text-white mb-3">Upcoming Events</h1>
         <Divider light />
-        <p className="font-sans text-white/60 mt-4 text-sm max-w-lg mx-auto">
+        <p className="font-sans text-white/60 mt-3 text-sm max-w-lg mx-auto">
           From weekly jazz nights to exclusive masterclasses - there is always something happening at Jiko House.
         </p>
       </section>
 
       {/* Category filter */}
       <section className="bg-white sticky top-16 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex gap-3 overflow-x-auto">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex gap-2 overflow-x-auto">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`flex-shrink-0 px-6 py-2 rounded-full text-sm font-medium font-sans transition-all ${
+              className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium font-sans transition-all ${
                 activeCategory === cat
                   ? 'bg-[#D89B3F] text-white shadow'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -128,26 +128,26 @@ export default function Events() {
       </section>
 
       {/* Events grid */}
-      <section className="bg-[#F4F4F2] py-16 px-4">
+      <section className="bg-[#F4F4F2] py-8 md:py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {filtered.map((event) => (
               <EventCard key={event.id} event={event} onReserve={() => navigate('/contact')} />
             ))}
           </div>
 
           {filtered.length === 0 && (
-            <div className="text-center py-20">
-              <p className="font-sans text-gray-400">No events in this category right now. Check back soon.</p>
+            <div className="text-center py-10">
+              <p className="font-sans text-gray-400 text-sm">No events in this category right now. Check back soon.</p>
             </div>
           )}
         </div>
       </section>
 
       {/* Private events CTA */}
-      <section className="bg-white py-16 px-4">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-10">
-          <div className="md:w-1/2 rounded-2xl overflow-hidden shadow-lg aspect-video">
+      <section className="bg-white py-10 md:py-16 px-4">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-6 md:gap-10">
+          <div className="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-lg aspect-video">
             <img
               src="https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?w=800&q=80"
               alt="Private dining at Jiko House"
@@ -155,19 +155,19 @@ export default function Events() {
               loading="lazy"
             />
           </div>
-          <div className="md:w-1/2">
-            <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-3">
+          <div className="w-full md:w-1/2">
+            <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">
               Private Events
             </p>
-            <h2 className="font-serif text-3xl font-bold text-[#2B2D3A] mb-3">
+            <h2 className="font-serif text-2xl md:text-3xl font-bold text-[#2B2D3A] mb-2">
               Host Your Next Event with Us
             </h2>
             <Divider />
-            <p className="font-sans text-gray-500 text-sm leading-relaxed mt-4 mb-6">
+            <p className="font-sans text-gray-500 text-sm leading-relaxed mt-3 mb-4">
               Birthday celebrations, corporate dinners, team lunches, wedding brunches - our private dining
               room seats up to 50 guests and our team handles every detail, from custom menus to decor.
             </p>
-            <div className="space-y-3 mb-6">
+            <div className="space-y-2 mb-5">
               {[
                 'Custom BBQ menus tailored to your group',
                 'Dedicated event coordinator',
@@ -190,12 +190,10 @@ export default function Events() {
       </section>
 
       {/* Newsletter signup strip */}
-      <section className="bg-[#2B2D3A] py-12 px-4">
+      <section className="bg-[#2B2D3A] py-8 md:py-12 px-4">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="font-serif text-2xl font-bold text-white mb-2">
-            Never Miss an Event
-          </h2>
-          <p className="font-sans text-white/60 text-sm mb-6">
+          <h2 className="font-serif text-xl md:text-2xl font-bold text-white mb-1">Never Miss an Event</h2>
+          <p className="font-sans text-white/60 text-sm mb-4">
             Drop your number and we will WhatsApp you when new events are announced.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
@@ -239,10 +237,10 @@ function EventCard({ event, onReserve }) {
         )}
       </div>
 
-      <div className="p-6 flex flex-col flex-1">
-        <h3 className="font-serif text-xl font-bold text-[#2B2D3A] mb-3">{event.title}</h3>
+      <div className="p-4 md:p-6 flex flex-col flex-1">
+        <h3 className="font-serif text-base md:text-xl font-bold text-[#2B2D3A] mb-2">{event.title}</h3>
 
-        <div className="space-y-1.5 mb-4">
+        <div className="space-y-1 mb-3">
           <div className="flex items-center gap-2 text-sm text-gray-500 font-sans">
             <svg className="w-4 h-4 text-[#D89B3F] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />

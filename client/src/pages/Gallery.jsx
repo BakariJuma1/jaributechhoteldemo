@@ -8,21 +8,21 @@ export default function Gallery() {
   return (
     <main className="pt-16">
       {/* Page header */}
-      <section className="bg-[#2B2D3A] py-20 px-4 text-center">
-        <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-3">
+      <section className="bg-[#2B2D3A] py-10 md:py-20 px-4 text-center">
+        <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">
           A Feast for the Eyes
         </p>
-        <h1 className="font-serif text-5xl md:text-6xl font-bold text-white mb-3">Gallery</h1>
+        <h1 className="font-serif text-3xl md:text-6xl font-bold text-white mb-3">Gallery</h1>
         <Divider light />
-        <p className="font-sans text-white/60 mt-4 max-w-lg mx-auto text-sm">
+        <p className="font-sans text-white/60 mt-3 max-w-lg mx-auto text-sm">
           From fire-kissed brisket to our warm dining room - every visit is a moment worth remembering.
         </p>
       </section>
 
       {/* Masonry grid */}
-      <section className="bg-[#F4F4F2] py-16 px-4">
+      <section className="bg-[#F4F4F2] py-8 md:py-16 px-3 md:px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+          <div className="columns-2 md:columns-3 lg:columns-4 gap-3 md:gap-4 space-y-3 md:space-y-4">
             {galleryImages.map((img, i) => (
               <div
                 key={i}
@@ -52,7 +52,7 @@ export default function Gallery() {
             onClick={() => setLightbox(null)}
             aria-label="Close"
           >
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -62,7 +62,7 @@ export default function Gallery() {
             className="max-w-full max-h-[85vh] rounded-xl object-contain shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           />
-          <p className="absolute bottom-4 left-1/2 -translate-x-1/2 font-sans text-white/60 text-sm">
+          <p className="absolute bottom-4 left-1/2 -translate-x-1/2 font-sans text-white/60 text-xs">
             {lightbox.alt}
           </p>
         </div>
