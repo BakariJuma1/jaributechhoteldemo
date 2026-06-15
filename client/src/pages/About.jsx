@@ -1,6 +1,9 @@
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { doc, getDoc, collection, query, orderBy, getDocs } from 'firebase/firestore'
+import { db } from '../lib/firebase'
 import Divider from '../components/Divider'
-import { siteConfig } from '../config/siteConfig'
+import { siteConfig, galleryImages, buildWhatsAppUrl, whatsappMessages } from '../config/siteConfig'
 
 const values = [
   {
@@ -41,6 +44,22 @@ const milestones = [
 
 export default function About() {
   const navigate = useNavigate()
+  const [bizInfo, setBizInfo] = useState(null)
+  const [gallery, setGallery] = useState(galleryImages)
+  const [lightbox, setLightbox] = useState(null)
+
+  useEffect(() => {
+    getDoc(doc(db, 'businessInfo', 'main'))
+      .then((d) => { if (d.exists()) setBizInfo(d.data()) })
+      .catch(() => {})
+
+    getDocs(query(collection(db, 'gallery'), orderBy('order')))
+      .then((snap) => { if (!snap.empty) setGallery(snap.docs.map((d) => ({ id: d.id, ...d.data() }))) })
+      .catch(() => {})
+  }, [])
+
+  const config = bizInfo || siteConfig
+  const reserveUrl = buildWhatsAppUrl(config.whatsapp || siteConfig.whatsapp, whatsappMessages.reserve)
 
   return (
     <main className="pt-16">
@@ -50,7 +69,7 @@ export default function About() {
         <div className="absolute inset-0 bg-[#2B2D3A]/80" />
         <div className="relative z-10 text-center max-w-3xl mx-auto">
           <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">Our Story</p>
-          <h1 className="font-serif text-2xl md:text-6xl font-bold text-white mb-3">About Jiko House</h1>
+          <h1 className="font-serif text-2xl md:text-6xl font-bold text-white mb-3">About {config.name || siteConfig.name}</h1>
           <Divider light />
           <p className="font-sans text-white/70 mt-3 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
             Born from a love of fire, flavour, and the people of Nairobi.
@@ -68,9 +87,13 @@ export default function About() {
             </h2>
             <Divider />
             <div className="font-sans text-gray-500 text-sm md:text-base leading-relaxed space-y-3 mt-3">
-              <p>Jiko House started with a single charcoal jiko in a backyard in Westlands. Our founder, Chef Amani Njoroge, had spent two decades perfecting the art of slow-smoked BBQ - studying pitmasters in Texas, learning from his grandmother in Kisumu, and eventually bringing it all home to Nairobi.</p>
-              <p>In 2016, he opened the first Jiko House with 40 seats and one simple promise: real fire, real flavour, real Nairobi. Word spread fast. The queues grew longer. And the rest, as they say, is delicious history.</p>
-              <p className="hidden md:block">Today Jiko House serves thousands of guests every month, but the soul has never changed. Every rack of ribs still goes over hardwood. Every sauce is still made from scratch. Every guest still matters.</p>
+              <p>{config.about || siteConfig.about}</p>
+              {!bizInfo && (
+                <>
+                  <p>In 2016, he opened the first Jiko House with 40 seats and one simple promise: real fire, real flavour, real Nairobi. Word spread fast. The queues grew longer. And the rest, as they say, is delicious history.</p>
+                  <p className="hidden md:block">Today Jiko House serves thousands of guests every month, but the soul has never changed. Every rack of ribs still goes over hardwood. Every sauce is still made from scratch. Every guest still matters.</p>
+                </>
+              )}
             </div>
           </div>
           <div className="rounded-2xl overflow-hidden shadow-lg aspect-[4/3]">
@@ -148,14 +171,70 @@ export default function About() {
         </div>
       </section>
 
+      {/* Gallery section */}
+      <section className="bg-[#F4F4F2] py-6 md:py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-5 md:mb-12">
+            <p className="font-sans text-xs uppercase tracking-widest text-[#D89B3F] font-semibold mb-2">A Feast for the Eyes</p>
+            <h2 className="font-serif text-2xl md:text-4xl font-bold text-[#2B2D3A]">Gallery</h2>
+            <Divider />
+          </div>
+          <div className="columns-2 md:columns-3 lg:columns-4 gap-3 md:gap-4 space-y-3 md:space-y-4">
+            {gallery.map((img, i) => (
+              <div
+                key={img.id || i}
+                className="break-inside-avoid rounded-xl overflow-hidden cursor-pointer group shadow-sm hover:shadow-md transition-shadow"
+                onClick={() => setLightbox(img)}
+              >
+                <img
+                  src={img.imageUrl}
+                  alt={img.caption}
+                  className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white/80 hover:text-white p-2"
+            onClick={() => setLightbox(null)}
+            aria-label="Close"
+          >
+            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <img
+            src={lightbox.imageUrl}
+            alt={lightbox.caption}
+            className="max-w-full max-h-[85vh] rounded-xl object-contain shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+          {lightbox.caption && (
+            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 font-sans text-white/60 text-xs">
+              {lightbox.caption}
+            </p>
+          )}
+        </div>
+      )}
+
       {/* CTA */}
-      <section className="bg-[#F4F4F2] py-6 md:py-16 px-4 text-center">
+      <section className="bg-white py-6 md:py-16 px-4 text-center">
         <h2 className="font-serif text-xl md:text-3xl font-bold text-[#2B2D3A] mb-2">Come Experience It Yourself</h2>
         <p className="font-sans text-gray-500 text-sm mb-5 max-w-md mx-auto">
           The story is best told over a plate of slow-smoked ribs. Reserve your table today.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <button onClick={() => navigate('/contact')} className="btn-primary">Reserve a Table</button>
+          <a href={reserveUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">Reserve a Table</a>
           <button onClick={() => navigate('/menu')} className="btn-outline">View the Menu</button>
         </div>
       </section>

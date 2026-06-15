@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { siteConfig } from '../config/siteConfig'
+import { Link, NavLink } from 'react-router-dom'
+import { siteConfig, buildWhatsAppUrl, whatsappMessages } from '../config/siteConfig'
 
 const navLinks = [
   { label: 'Home', to: '/' },
   { label: 'About Us', to: '/about' },
   { label: 'Menu', to: '/menu' },
   { label: 'Contact Us', to: '/contact' },
-  { label: 'Upcoming Events', to: '/events' },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const navigate = useNavigate()
+
+  const reserveUrl = buildWhatsAppUrl(siteConfig.whatsapp, whatsappMessages.reserve)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -63,12 +63,14 @@ export default function Navbar() {
 
           {/* CTA + hamburger */}
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => navigate('/contact')}
+            <a
+              href={reserveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden sm:block btn-primary text-sm py-2 px-5"
             >
               Reserve a Table
-            </button>
+            </a>
             <button
               className="md:hidden p-2 rounded text-gray-600 hover:text-[#D89B3F] transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -109,12 +111,15 @@ export default function Navbar() {
                 {link.label}
               </NavLink>
             ))}
-            <button
-              onClick={() => { navigate('/contact'); setMobileOpen(false) }}
-              className="btn-primary text-sm mt-2"
+            <a
+              href={reserveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileOpen(false)}
+              className="btn-primary text-sm mt-2 text-center"
             >
               Reserve a Table
-            </button>
+            </a>
           </div>
         </div>
       )}

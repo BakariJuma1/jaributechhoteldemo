@@ -1,16 +1,50 @@
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { doc, getDoc, collection, query, orderBy, limit, getDocs } from 'firebase/firestore'
+import { db } from '../lib/firebase'
 import Hero from '../components/Hero'
 import Divider from '../components/Divider'
-import { siteConfig, menuCategories } from '../config/siteConfig'
-
-const featuredItems = menuCategories[0].items.slice(0, 3)
+import { siteConfig, menuCategories, buildWhatsAppUrl, whatsappMessages } from '../config/siteConfig'
 
 export default function Home() {
   const navigate = useNavigate()
+  const [bizInfo, setBizInfo] = useState(null)
+  const [featuredItems, setFeaturedItems] = useState(menuCategories[0].items.slice(0, 3))
+  const [menuCats, setMenuCats] = useState(menuCategories)
+
+  useEffect(() => {
+    getDoc(doc(db, 'businessInfo', 'main'))
+      .then((d) => { if (d.exists()) setBizInfo(d.data()) })
+      .catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    getDocs(query(collection(db, 'menuItems'), orderBy('order'), limit(3)))
+      .then((snap) => {
+        if (!snap.empty) setFeaturedItems(snap.docs.map((d) => ({ id: d.id, ...d.data() })))
+      })
+      .catch(() => {})
+
+    getDocs(query(collection(db, 'menuItems'), orderBy('order')))
+      .then((snap) => {
+        if (snap.empty) return
+        const cats = {}
+        snap.docs.forEach((d) => {
+          const item = { id: d.id, ...d.data() }
+          if (!cats[item.category]) cats[item.category] = { id: item.category, label: item.category, items: [] }
+          cats[item.category].items.push(item)
+        })
+        setMenuCats(Object.values(cats))
+      })
+      .catch(() => {})
+  }, [])
+
+  const config = bizInfo || siteConfig
+  const reserveUrl = buildWhatsAppUrl(config.whatsapp || siteConfig.whatsapp, whatsappMessages.reserve)
 
   return (
     <main>
-      <Hero />
+      <Hero bizInfo={bizInfo} />
 
       {/* About strip */}
       <section className="bg-white py-6 md:py-20 px-4">
@@ -19,14 +53,14 @@ export default function Home() {
             Nairobi's Favourite Smokehouse
           </p>
           <h2 className="font-serif text-2xl md:text-5xl font-bold text-[#2B2D3A] mb-3">
-            Jiko House.
+            {config.name || siteConfig.name}.
           </h2>
           <Divider />
           <p className="font-sans text-gray-500 text-sm md:text-base leading-relaxed mt-3 max-w-2xl mx-auto">
-            {siteConfig.description}
+            {config.description || siteConfig.description}
           </p>
           <div className="flex flex-wrap justify-center gap-2 mt-6">
-            {menuCategories.map((cat) => (
+            {menuCats.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => navigate('/menu')}
@@ -58,7 +92,7 @@ export default function Home() {
               >
                 <div className="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-lg aspect-video">
                   <img
-                    src={item.image}
+                    src={item.imageUrl || item.image}
                     alt={item.name}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                     loading="lazy"
@@ -69,12 +103,19 @@ export default function Home() {
                   <div className="w-10 h-0.5 bg-[#D89B3F] mb-2 mx-auto md:mx-0" />
                   <p className="font-sans text-xl md:text-2xl font-semibold text-[#D89B3F] mb-3">{item.price}</p>
                   <p className="font-sans text-gray-500 text-sm md:text-base leading-relaxed">{item.description}</p>
-                  <button
-                    onClick={() => navigate('/menu')}
-                    className="btn-outline mt-5 text-sm"
-                  >
-                    View Full Menu
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-3 mt-5 justify-center md:justify-start">
+                    <button onClick={() => navigate('/menu')} className="btn-outline text-sm">
+                      View Full Menu
+                    </button>
+                    <a
+                      href={buildWhatsAppUrl(config.whatsapp || siteConfig.whatsapp, whatsappMessages.order(item.name))}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-primary text-sm"
+                    >
+                      Order via WhatsApp
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
@@ -100,12 +141,14 @@ export default function Home() {
           <p className="font-sans text-white/70 text-sm md:text-base mt-3 mb-6 leading-relaxed">
             Whether it's a quiet dinner for two or a celebration with friends - we have a table waiting for you.
           </p>
-          <button
-            onClick={() => navigate('/contact')}
-            className="btn-primary text-sm md:text-base"
+          <a
+            href={reserveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-sm md:text-base inline-block"
           >
             Reserve a Table
-          </button>
+          </a>
         </div>
       </section>
 
@@ -117,11 +160,15 @@ export default function Home() {
           <div className="mt-5 grid grid-cols-2 gap-4 max-w-lg mx-auto">
             <div className="bg-[#F4F4F2] rounded-2xl p-4 md:p-6">
               <p className="font-sans font-semibold text-[#2B2D3A] text-sm mb-1">Mon - Fri</p>
-              <p className="font-sans text-[#D89B3F] text-base md:text-lg font-bold">{siteConfig.hours.weekdays}</p>
+              <p className="font-sans text-[#D89B3F] text-base md:text-lg font-bold">
+                {config.hours?.weekdays || siteConfig.hours.weekdays}
+              </p>
             </div>
             <div className="bg-[#2B2D3A] rounded-2xl p-4 md:p-6">
               <p className="font-sans font-semibold text-white text-sm mb-1">Sat - Sun</p>
-              <p className="font-sans text-[#D89B3F] text-base md:text-lg font-bold">{siteConfig.hours.weekends}</p>
+              <p className="font-sans text-[#D89B3F] text-base md:text-lg font-bold">
+                {config.hours?.weekends || siteConfig.hours.weekends}
+              </p>
             </div>
           </div>
         </div>

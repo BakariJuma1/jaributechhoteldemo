@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom'
 import Divider from './Divider'
-import { siteConfig } from '../config/siteConfig'
+import { siteConfig, buildWhatsAppUrl, whatsappMessages } from '../config/siteConfig'
 
-export default function Hero() {
-  const navigate = useNavigate()
+export default function Hero({ bizInfo }) {
+  const config = bizInfo || siteConfig
+  const reserveUrl = buildWhatsAppUrl(config.whatsapp || siteConfig.whatsapp, whatsappMessages.reserve)
 
   return (
     <section className="relative min-h-[60vh] md:min-h-screen flex items-center justify-center overflow-hidden">
@@ -21,21 +21,23 @@ export default function Hero() {
         </h1>
         <Divider light />
         <p className="text-white/80 font-sans text-base md:text-xl leading-relaxed mt-3 mb-6 max-w-xl mx-auto">
-          {siteConfig.tagline}
+          {config.tagline || siteConfig.tagline}
         </p>
-        <button
-          onClick={() => navigate('/contact')}
-          className="btn-primary text-sm md:text-base px-7 py-3"
+        <a
+          href={reserveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary text-sm md:text-base px-7 py-3 inline-block"
         >
           Reserve Table
-        </button>
+        </a>
         <div className="mt-4 font-sans text-white/70 text-sm">
           Or Call Us:{' '}
           <a
-            href={`tel:${siteConfig.phone.replace(/\s/g, '')}`}
+            href={`tel:${(config.phone || siteConfig.phone).replace(/\s/g, '')}`}
             className="text-[#D89B3F] font-semibold hover:underline"
           >
-            {siteConfig.phone}
+            {config.phone || siteConfig.phone}
           </a>
         </div>
       </div>

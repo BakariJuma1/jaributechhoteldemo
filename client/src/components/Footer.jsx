@@ -9,7 +9,7 @@ export default function Footer() {
         {/* Top: brand + columns */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-10">
 
-          {/* Brand - full width on mobile */}
+          {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <h3 className="font-serif text-2xl font-bold text-white mb-2">{siteConfig.name}</h3>
             <p className="hidden md:block font-sans text-sm text-gray-400 leading-relaxed mb-4">
@@ -35,7 +35,7 @@ export default function Footer() {
           <div>
             <h4 className="font-serif text-base font-semibold text-white mb-3">Links</h4>
             <ul className="space-y-2 font-sans text-sm text-gray-400">
-              {[['/', 'Home'], ['/about', 'About'], ['/menu', 'Menu'], ['/gallery', 'Gallery'], ['/contact', 'Contact'], ['/events', 'Events']].map(([to, label]) => (
+              {[['/', 'Home'], ['/about', 'About Us'], ['/menu', 'Menu'], ['/contact', 'Contact Us']].map(([to, label]) => (
                 <li key={to}>
                   <Link to={to} className="hover:text-[#D89B3F] transition-colors">{label}</Link>
                 </li>

@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Replace OWNER_UID with the Firebase Auth UID of the admin user.
+    // Find it in Firebase Console → Authentication → Users after first login.
+    function isOwner() {
+      return request.auth != null && request.auth.uid == 'OWNER_UID';
+    }
+
+    match /menuItems/{doc} {
+      allow read: if true;
+      allow write: if isOwner();
+    }
+
+    match /gallery/{doc} {
+      allow read: if true;
+      allow write: if isOwner();
+    }
+
+    match /businessInfo/{doc} {
+      allow read: if true;
+      allow write: if isOwner();
+    }
+  }
+}

@@ -1,19 +1,42 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { collection, query, orderBy, getDocs } from 'firebase/firestore'
+import { db } from '../lib/firebase'
 import Divider from '../components/Divider'
 import MenuCard from '../components/MenuCard'
-import { siteConfig, menuCategories } from '../config/siteConfig'
+import { siteConfig, menuCategories, buildWhatsAppUrl, whatsappMessages } from '../config/siteConfig'
 
 export default function Menu() {
   const [activeCategory, setActiveCategory] = useState('all')
-  const navigate = useNavigate()
+  const [categories, setCategories] = useState(menuCategories)
+
+  useEffect(() => {
+    getDocs(query(collection(db, 'menuItems'), orderBy('order')))
+      .then((snap) => {
+        if (snap.empty) return
+        const cats = {}
+        snap.docs.forEach((d) => {
+          const item = { id: d.id, ...d.data() }
+          if (!cats[item.category]) {
+            cats[item.category] = { id: item.category, label: capitalise(item.category), items: [] }
+          }
+          cats[item.category].items.push(item)
+        })
+        setCategories(Object.values(cats))
+      })
+      .catch(() => {})
+  }, [])
+
+  const handleOrder = (itemName) => {
+    const url = buildWhatsAppUrl(siteConfig.whatsapp, whatsappMessages.order(itemName))
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
 
   const displayItems =
     activeCategory === 'all'
-      ? menuCategories.flatMap((c) => c.items)
-      : menuCategories.find((c) => c.id === activeCategory)?.items || []
+      ? categories.flatMap((c) => c.items)
+      : categories.find((c) => c.id === activeCategory)?.items || []
 
-  const featuredItems = menuCategories[0].items.slice(0, 4)
+  const featuredItems = categories[0]?.items.slice(0, 4) || []
 
   return (
     <main className="pt-16">
@@ -42,7 +65,7 @@ export default function Menu() {
           >
             All
           </button>
-          {menuCategories.map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
@@ -71,13 +94,19 @@ export default function Menu() {
                   className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-4 md:gap-10`}
                 >
                   <div className="w-full md:w-1/2 rounded-xl overflow-hidden shadow-md aspect-video">
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" loading="lazy" />
+                    <img src={item.imageUrl || item.image} alt={item.name} className="w-full h-full object-cover" loading="lazy" />
                   </div>
                   <div className="w-full md:w-1/2 text-center md:text-left">
                     <h3 className="font-serif text-xl md:text-3xl font-bold text-[#2B2D3A] mb-1">{item.name}</h3>
                     <div className="w-8 h-0.5 bg-[#D89B3F] mb-2 mx-auto md:mx-0" />
                     <p className="font-sans text-lg md:text-2xl font-semibold text-[#D89B3F] mb-2">{item.price}</p>
-                    <p className="font-sans text-gray-500 text-sm leading-relaxed">{item.description}</p>
+                    <p className="font-sans text-gray-500 text-sm leading-relaxed mb-4">{item.description}</p>
+                    <button
+                      onClick={() => handleOrder(item.name)}
+                      className="btn-primary text-sm"
+                    >
+                      Order via WhatsApp
+                    </button>
                   </div>
                 </div>
               ))}
@@ -90,14 +119,16 @@ export default function Menu() {
       <section className="bg-white py-6 md:py-16 px-4">
         <div className="max-w-7xl mx-auto">
           {activeCategory === 'all' ? (
-            menuCategories.map((cat) => (
+            categories.map((cat) => (
               <div key={cat.id} className="mb-6 md:mb-16">
                 <div className="flex items-center gap-3 mb-4 md:mb-8">
                   <h2 className="font-serif text-xl md:text-3xl font-bold text-[#2B2D3A]">{cat.label}</h2>
                   <div className="flex-1 h-px bg-gray-200" />
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
-                  {cat.items.map((item) => <MenuCard key={item.name} {...item} />)}
+                  {cat.items.map((item) => (
+                    <MenuCard key={item.name} {...item} onOrder={() => handleOrder(item.name)} />
+                  ))}
                 </div>
               </div>
             ))
@@ -105,12 +136,14 @@ export default function Menu() {
             <>
               <div className="flex items-center gap-3 mb-4 md:mb-8">
                 <h2 className="font-serif text-xl md:text-3xl font-bold text-[#2B2D3A]">
-                  {menuCategories.find((c) => c.id === activeCategory)?.label}
+                  {categories.find((c) => c.id === activeCategory)?.label}
                 </h2>
                 <div className="flex-1 h-px bg-gray-200" />
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
-                {displayItems.map((item) => <MenuCard key={item.name} {...item} />)}
+                {displayItems.map((item) => (
+                  <MenuCard key={item.name} {...item} onOrder={() => handleOrder(item.name)} />
+                ))}
               </div>
             </>
           )}
@@ -120,14 +153,28 @@ export default function Menu() {
       {/* Reserve CTA */}
       <section className="bg-[#2B2D3A] py-6 md:py-16 px-4 text-center">
         <h2 className="font-serif text-xl md:text-3xl font-bold text-white mb-2">Ready to Order?</h2>
-        <p className="font-sans text-white/60 mb-5 text-sm">Reserve your table or call us for a takeaway order.</p>
+        <p className="font-sans text-white/60 mb-5 text-sm">Reserve your table or reach us directly via WhatsApp.</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <button onClick={() => navigate('/contact')} className="btn-primary">Reserve a Table</button>
-          <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="btn-outline border-white/30 text-white hover:bg-white hover:text-[#2B2D3A]">
+          <a
+            href={buildWhatsAppUrl(siteConfig.whatsapp, whatsappMessages.reserve)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary"
+          >
+            Reserve a Table
+          </a>
+          <a
+            href={`tel:${siteConfig.phone.replace(/\s/g, '')}`}
+            className="btn-outline border-white/30 text-white hover:bg-white hover:text-[#2B2D3A]"
+          >
             Call {siteConfig.phone}
           </a>
         </div>
       </section>
     </main>
   )
+}
+
+function capitalise(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
 }

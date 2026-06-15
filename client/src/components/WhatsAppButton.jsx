@@ -1,7 +1,7 @@
-import { siteConfig } from '../config/siteConfig'
+import { siteConfig, buildWhatsAppUrl, whatsappMessages } from '../config/siteConfig'
 
 export default function WhatsAppButton() {
-  const url = `https://wa.me/${siteConfig.whatsapp}?text=Hi%20Jiko%20House%2C%20I'd%20like%20to%20make%20a%20reservation.`
+  const url = buildWhatsAppUrl(siteConfig.whatsapp, whatsappMessages.general)
 
   return (
     <a
