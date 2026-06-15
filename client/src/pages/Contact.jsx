@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc, addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import Divider from '../components/Divider'
 import { siteConfig, buildWhatsAppUrl, whatsappMessages } from '../config/siteConfig'
@@ -18,10 +18,17 @@ export default function Contact() {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    addDoc(collection(db, 'enquiries'), {
+      name: form.name,
+      phone: form.phone,
+      message: form.message,
+      createdAt: serverTimestamp(),
+    }).catch(() => {})
     const text = `Hi, my name is ${form.name}. ${form.message} (Phone: ${form.phone})`
     window.open(buildWhatsAppUrl(config.whatsapp || siteConfig.whatsapp, text), '_blank', 'noopener,noreferrer')
+    setForm({ name: '', phone: '', message: '' })
   }
 
   const reserveUrl = buildWhatsAppUrl(config.whatsapp || siteConfig.whatsapp, whatsappMessages.reserve)

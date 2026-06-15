@@ -31,7 +31,8 @@ export default function AdminLogin() {
         <Link to="/" className="flex items-center gap-2">
           <div className="w-9 h-9 rounded-full bg-[#2B2D3A] flex items-center justify-center">
             <svg className="w-5 h-5 text-[#D89B3F]" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
+              <path d="M17 14.5V16H7v-1.5A4 4 0 0 1 5 11c0-1.8 1.2-3.3 2.9-3.8C8.2 5.3 9.9 4 12 4s3.8 1.3 4.1 3.2C17.8 7.7 19 9.2 19 11a4 4 0 0 1-2 3.5z"/>
+              <path d="M7 17h10v2a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-2z"/>
             </svg>
           </div>
           <span className="font-serif font-bold text-xl text-[#2B2D3A] tracking-tight">{siteConfig.name}</span>
@@ -46,7 +47,8 @@ export default function AdminLogin() {
         <div className="text-center mb-6">
           <div className="w-12 h-12 rounded-full bg-[#2B2D3A] flex items-center justify-center mx-auto mb-3">
             <svg className="w-6 h-6 text-[#D89B3F]" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
+              <path d="M17 14.5V16H7v-1.5A4 4 0 0 1 5 11c0-1.8 1.2-3.3 2.9-3.8C8.2 5.3 9.9 4 12 4s3.8 1.3 4.1 3.2C17.8 7.7 19 9.2 19 11a4 4 0 0 1-2 3.5z"/>
+              <path d="M7 17h10v2a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-2z"/>
             </svg>
           </div>
           <h1 className="font-serif text-2xl font-bold text-[#2B2D3A]">{siteConfig.name}</h1>

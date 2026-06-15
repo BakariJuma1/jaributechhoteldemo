@@ -6,8 +6,8 @@ export default function handler(req, res) {
   }
 
   const apiSecret = process.env.CLOUDINARY_API_SECRET
-  const apiKey = process.env.CLOUDINARY_API_KEY
-  const cloudName = process.env.CLOUDINARY_CLOUD_NAME
+  const apiKey = process.env.VITE_CLOUDINARY_API_KEY
+  const cloudName = process.env.VITE_CLOUDINARY_CLOUD_NAME
 
   if (!apiSecret || !apiKey || !cloudName) {
     return res.status(500).json({ error: 'Cloudinary env vars not configured on server' })

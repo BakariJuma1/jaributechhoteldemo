@@ -6,7 +6,7 @@ export default function Hero({ bizInfo }) {
   const reserveUrl = buildWhatsAppUrl(config.whatsapp || siteConfig.whatsapp, whatsappMessages.reserve)
 
   return (
-    <section className="relative min-h-[60vh] md:min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[60vh] md:min-h-[55vh] flex items-center justify-center overflow-hidden">
       <img
         src="/hero.gif"
         alt=""
