@@ -7,10 +7,8 @@ import {
   collection, query, orderBy, getDocs,
   addDoc, updateDoc, deleteDoc, doc, setDoc, getDoc,
 } from 'firebase/firestore'
-import {
-  ref, uploadBytes, getDownloadURL,
-} from 'firebase/storage'
-import { auth, db, storage } from '../../lib/firebase'
+import { auth, db } from '../../lib/firebase'
+import { uploadToCloudinary } from '../../lib/cloudinary'
 import { siteConfig } from '../../config/siteConfig'
 
 const CATEGORIES = ['mains', 'salads', 'beverages', 'desserts']
@@ -94,10 +92,10 @@ function MenuTab() {
     if (!file) return
     setUploading(true)
     try {
-      const storageRef = ref(storage, `menu/${Date.now()}_${file.name}`)
-      await uploadBytes(storageRef, file)
-      const url = await getDownloadURL(storageRef)
+      const url = await uploadToCloudinary(file)
       setForm((f) => ({ ...f, imageUrl: url }))
+    } catch (err) {
+      alert(err.message)
     } finally {
       setUploading(false)
     }
@@ -314,10 +312,10 @@ function GalleryTab() {
     if (!file) return
     setUploading(true)
     try {
-      const storageRef = ref(storage, `gallery/${Date.now()}_${file.name}`)
-      await uploadBytes(storageRef, file)
-      const url = await getDownloadURL(storageRef)
+      const url = await uploadToCloudinary(file)
       setForm((f) => ({ ...f, imageUrl: url }))
+    } catch (err) {
+      alert(err.message)
     } finally {
       setUploading(false)
     }

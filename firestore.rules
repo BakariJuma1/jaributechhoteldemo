@@ -4,7 +4,7 @@ service cloud.firestore {
     // Replace OWNER_UID with the Firebase Auth UID of the admin user.
     // Find it in Firebase Console → Authentication → Users after first login.
     function isOwner() {
-      return request.auth != null && request.auth.uid == 'OWNER_UID';
+      return request.auth != null && request.auth.uid == 'fdF5xY5HSRQzQaEU9c6TYWDRkRg1';
     }
 
     match /menuItems/{doc} {

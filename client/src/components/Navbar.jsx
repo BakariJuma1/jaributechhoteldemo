@@ -63,6 +63,12 @@ export default function Navbar() {
 
           {/* CTA + hamburger */}
           <div className="flex items-center gap-3">
+            <NavLink
+              to="/admin/login"
+              className="hidden md:block font-sans text-xs text-gray-400 hover:text-[#D89B3F] transition-colors"
+            >
+              Admin
+            </NavLink>
             <a
               href={reserveUrl}
               target="_blank"

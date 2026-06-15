@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { auth } from '../../lib/firebase'
 import { siteConfig } from '../../config/siteConfig'
 
@@ -25,7 +25,23 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F4F4F2] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#F4F4F2] flex flex-col">
+      {/* Navbar */}
+      <header className="bg-white shadow-sm px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2">
+          <div className="w-9 h-9 rounded-full bg-[#2B2D3A] flex items-center justify-center">
+            <svg className="w-5 h-5 text-[#D89B3F]" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" />
+            </svg>
+          </div>
+          <span className="font-serif font-bold text-xl text-[#2B2D3A] tracking-tight">{siteConfig.name}</span>
+        </Link>
+        <Link to="/" className="font-sans text-sm text-gray-500 hover:text-[#D89B3F] transition-colors">
+          ← Back to site
+        </Link>
+      </header>
+
+      <div className="flex-1 flex items-center justify-center px-4">
       <div className="bg-white rounded-2xl shadow-md p-8 w-full max-w-sm">
         <div className="text-center mb-6">
           <div className="w-12 h-12 rounded-full bg-[#2B2D3A] flex items-center justify-center mx-auto mb-3">
@@ -75,6 +91,7 @@ export default function AdminLogin() {
           </button>
         </form>
       </div>
+    </div>
     </div>
   )
 }
